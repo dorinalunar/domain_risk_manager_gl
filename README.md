@@ -81,3 +81,25 @@ To prevent context window bloat and excessive gas costs, the contract enforces t
 
 ---
 *Developed for the GenLayer Ecosystem using `py-genlayer` SDK.*
+
+```mermaid
+graph TD
+    A((Start)) -->|submit_agreement| B(QUEUED)
+    B -->|evaluate_submission| C{AI Consensus}
+    
+    C -->|OUTCOME_SAFE| D[LIVE]
+    C -->|OUTCOME_CLASH| E[DENIED]
+    C -->|OUTCOME_UNCLEAR| F[MANUAL_CHECK]
+    
+    F -->|override_judgement| G{Steward Decision}
+    G -->|SAFE| D
+    G -->|CLASH| E
+    
+    D -->|archive_record| H(ARCHIVED)
+    B -->|revoke_submission| I(REVOKED)
+    F -->|revoke_submission| I
+    
+    style D fill:#2e7d32,stroke:#1b5e20,stroke-width:2px,color:#fff
+    style E fill:#c62828,stroke:#b71c1c,stroke-width:2px,color:#fff
+    style F fill:#f9a825,stroke:#f57f17,stroke-width:2px,color:#fff
+```
